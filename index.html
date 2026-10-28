@@ -1,0 +1,985 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}[hidden]{display:none!important}</style>
+<title>⋆⭒˚.⋆𝓜𝓸𝓬𝓱𝓲 𝓜𝓸𝓭𝓮𝓶⋆⭒˚.⋆</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=VT323&display=swap">
+<style>
+  /* Layout concept: a Y2K desktop. Pink mochi sits centered under a marquee,
+     a row of glossy gel buttons opens windows on demand into an empty desktop,
+     pixel stars and hearts drift behind everything. */
+  :root {
+    --sky: #a9bcff;
+    --sky-deep: #7e92f0;
+    --bubble: #ff7ad0;
+    --lime: #b8ff4f;
+    --sun: #ffe65c;
+    --aqua: #5fe0ff;
+    --lilac: #c9a2ff;
+    --chrome: #e6e9f6;
+    --chrome-dark: #8f97bd;
+    --paper: #fffdf7;
+    --ink: #241454;
+    --font-display: 'Silkscreen', 'Courier New', monospace;
+    --font-body: 'VT323', 'Courier New', monospace;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body {
+    background-color: var(--sky);
+    background-image: conic-gradient(#b6c6ff 25%, #a9bcff 0 50%, #b6c6ff 0 75%, #a9bcff 0);
+    background-size: 32px 32px;
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 22px;
+    line-height: 1.25;
+  }
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-block: 16px 36px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    display: grid;
+    gap: 22px;
+  }
+  a { color: var(--ink); }
+  p { margin: 0 0 8px; }
+  p:last-child { margin-bottom: 0; }
+  button { font: inherit; color: inherit; }
+  a:focus-visible, button:focus-visible, .win:focus-visible { outline: 3px solid var(--bubble); outline-offset: 2px; }
+
+  /* drifting pixel shapes */
+  .floaters { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .floaters canvas { position: absolute; top: 0; image-rendering: pixelated; opacity: .6; animation: drift var(--dur, 22s) linear var(--delay, 0s) infinite; }
+  @keyframes drift {
+    from { transform: translate3d(0, 108vh, 0) rotate(0deg); }
+    50% { transform: translate3d(26px, 50vh, 0) rotate(8deg); }
+    to { transform: translate3d(-10px, -12vh, 0) rotate(-6deg); }
+  }
+
+  /* sparkle trail */
+  .trail { position: fixed; width: 12px; height: 12px; z-index: 60; pointer-events: none;
+    background:
+      linear-gradient(var(--c), var(--c)) center / 100% 2px no-repeat,
+      linear-gradient(var(--c), var(--c)) center / 2px 100% no-repeat,
+      linear-gradient(var(--c), var(--c)) center / 6px 6px no-repeat;
+    animation: trail .7s steps(6) forwards; }
+  @keyframes trail { to { transform: translateY(16px) scale(.2); opacity: 0; } }
+
+  /* marquee */
+  .marquee { overflow: hidden; white-space: nowrap; border: 3px solid var(--ink); background: var(--ink); color: var(--lime); font-family: var(--font-display); font-size: 13px; padding: 7px 0; letter-spacing: .06em; }
+  .marquee .track { display: inline-block; padding-left: 100%; animation: scroll 28s linear infinite; }
+  @keyframes scroll { to { transform: translateX(-100%); } }
+
+  /* hero */
+  .hero { position: relative; display: grid; justify-items: center; gap: 12px; text-align: center; padding-top: 6px; }
+  .bubble { position: relative; max-width: 320px; background: var(--paper); border: 3px solid var(--ink); border-radius: 16px; padding: 8px 16px; box-shadow: 4px 4px 0 var(--ink); }
+  .bubble::after { content: ''; position: absolute; left: 50%; bottom: -12px; width: 16px; height: 16px; background: var(--paper); border-right: 3px solid var(--ink); border-bottom: 3px solid var(--ink); transform: translateX(-50%) rotate(45deg); }
+  .mochiWrap { position: relative; margin-top: 8px; }
+  #heroMochi { display: block; image-rendering: pixelated; max-width: 100%; animation: bob 1.1s steps(2) infinite; filter: drop-shadow(6px 6px 0 rgba(36, 20, 84, .35)); }
+  @keyframes bob { 50% { transform: translateY(-8px); } }
+  .spark { position: absolute; image-rendering: pixelated; animation: twinkle 1.2s steps(2) infinite; }
+  .spark.s1 { left: -38px; top: 6px; }
+  .spark.s2 { right: 4px; top: -22px; animation-delay: .4s; }
+  .spark.s3 { left: -22px; bottom: 6px; animation-delay: .8s; }
+  @keyframes twinkle { 50% { opacity: .15; transform: scale(.7); } }
+  h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(34px, 9vw, 76px);
+    line-height: .95;
+    letter-spacing: .02em;
+    color: var(--sun);
+    -webkit-text-stroke: 3px var(--ink);
+    paint-order: stroke fill;
+    text-shadow: 4px 4px 0 var(--bubble), 8px 8px 0 var(--ink);
+    text-wrap: balance;
+    text-transform: uppercase;
+  }
+  .tagline { font-size: 26px; }
+  .burst { --star: polygon(50% 0, 61% 14%, 78% 7%, 80% 26%, 97% 30%, 88% 46%, 100% 62%, 82% 68%, 84% 88%, 65% 84%, 55% 100%, 44% 86%, 27% 97%, 24% 78%, 5% 80%, 13% 62%, 0 48%, 15% 35%, 7% 18%, 27% 22%, 36% 4%);
+    position: absolute; top: 14px; left: calc(100% + 26px); width: 92px; height: 92px; display: grid; place-items: center; background: var(--ink); clip-path: var(--star); animation: wiggle 1.4s steps(2) infinite; }
+  .burst::before { content: ''; position: absolute; inset: 5px; background: var(--bubble); clip-path: var(--star); }
+  .burst span { position: relative; font-family: var(--font-display); font-weight: 700; font-size: 14px; line-height: 1; text-align: center; color: var(--ink); transform: rotate(-12deg); }
+  @keyframes wiggle { 50% { transform: rotate(8deg) scale(1.06); } }
+
+  /* gel buttons */
+  .icons { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+  .gel { position: relative; display: grid; justify-items: center; align-content: center; gap: 8px; width: 108px; min-height: 96px; padding: 10px 6px 9px; border: 3px solid var(--ink); border-radius: 20px; background: var(--tint); box-shadow: 4px 4px 0 var(--ink), inset 0 -10px 0 rgba(36, 20, 84, .12); font-family: var(--font-display); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; cursor: pointer; overflow: hidden; touch-action: manipulation; }
+  .gel::after { content: ''; position: absolute; left: 9px; right: 9px; top: 4px; height: 34%; border-radius: 14px 14px 22px 22px; background: linear-gradient(rgba(255, 255, 255, .85), rgba(255, 255, 255, .12)); pointer-events: none; }
+  .gel canvas { position: relative; z-index: 1; image-rendering: pixelated; }
+  .gel span { position: relative; z-index: 1; }
+  .gel:hover { transform: translateY(-3px) rotate(-2deg); }
+  .gel:active, .gel[aria-expanded="true"] { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink), inset 0 -10px 0 rgba(36, 20, 84, .12); }
+  .t1 { --tint: #ff9fe0; } .t2 { --tint: #c4ff7a; } .t3 { --tint: #8ceeff; } .t4 { --tint: #fff08a; } .t5 { --tint: #d9bcff; }
+
+  /* desk + windows */
+  #desk { display: grid; gap: 20px; width: 100%; max-width: 700px; margin: 0 auto; align-content: start; }
+  .empty { border: 3px dashed var(--ink); background: rgba(255, 253, 247, .72); padding: 16px 18px; text-align: center; font-size: 24px; }
+  .win { background: var(--chrome); border: 3px solid var(--ink); box-shadow: 5px 5px 0 var(--ink); min-width: 0; scroll-margin: 12px; }
+  .win.pop { animation: pop .35s steps(4); }
+  @keyframes pop { from { transform: scale(.86); opacity: .2; } to { transform: none; opacity: 1; } }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 5px 8px; background: linear-gradient(90deg, var(--bubble), #c9a2ff 55%, var(--sky-deep)); border-bottom: 3px solid var(--ink); font-family: var(--font-display); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--ink); }
+  .close { flex: none; width: 28px; height: 28px; display: grid; place-items: center; background: var(--chrome); border: 3px solid; border-color: #fff var(--chrome-dark) var(--chrome-dark) #fff; outline: 2px solid var(--ink); font-family: var(--font-display); font-size: 12px; font-weight: 700; line-height: 1; cursor: pointer; }
+  .close:hover { background: var(--lime); }
+  .close:active { border-color: var(--chrome-dark) #fff #fff var(--chrome-dark); }
+  .inner { margin: 8px; padding: 12px; background: var(--paper); border: 3px solid; border-color: var(--chrome-dark) #fff #fff var(--chrome-dark); }
+  .inner + .inner { margin-top: 0; }
+  .inner h2 { margin: 0 0 8px; font-family: var(--font-display); font-size: 15px; text-transform: uppercase; letter-spacing: .06em; text-wrap: balance; }
+
+  /* meters */
+  .meter { height: 18px; border: 3px solid var(--ink); background: var(--paper); margin-top: 8px; }
+  .meter i { display: block; height: 100%; background: repeating-linear-gradient(90deg, var(--lime) 0 10px, transparent 10px 13px); }
+  .meter.pink i { background: repeating-linear-gradient(90deg, var(--bubble) 0 10px, transparent 10px 13px); }
+  .meter i.shimmer { animation: shimmer 1.2s steps(4) infinite; }
+  @keyframes shimmer { 50% { filter: brightness(1.12); } }
+
+  /* game */
+  .hud { display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; font-family: var(--font-display); font-size: 12px; margin-bottom: 10px; }
+  .lcd { background: var(--ink); color: var(--lime); padding: 5px 9px; border: 2px solid; border-color: #000 var(--chrome-dark) var(--chrome-dark) #000; letter-spacing: .08em; font-variant-numeric: tabular-nums; }
+  .stage { position: relative; max-width: 420px; margin: 0 auto; border: 3px solid var(--ink); box-shadow: 0 0 0 3px var(--bubble), 0 0 0 6px var(--ink); background: var(--ink); line-height: 0; }
+  #game { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; image-rendering: pixelated; touch-action: none; }
+  .overlay { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 12px; text-align: center; background: linear-gradient(rgba(36, 20, 84, .8), rgba(90, 40, 120, .8)); color: var(--paper); padding: 18px; line-height: 1.2; }
+  .overlay[hidden] { display: none; }
+  .overlay h3 { margin: 0; font-family: var(--font-display); font-size: 20px; color: var(--sun); text-transform: uppercase; text-wrap: balance; text-shadow: 2px 2px 0 var(--bubble); }
+  .overlay p { font-size: 22px; max-width: 24ch; }
+  .btn { display: inline-block; font-family: var(--font-display); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; padding: 10px 16px; background: var(--lime); color: var(--ink); border: 3px solid var(--ink); border-radius: 12px; box-shadow: 3px 3px 0 var(--ink); cursor: pointer; user-select: none; touch-action: manipulation; line-height: 1.1; text-decoration: none; }
+  .btn:hover { background: var(--sun); }
+  .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+  .btn.small { font-size: 11px; padding: 7px 11px; background: var(--aqua); }
+  .pad { display: flex; gap: 14px; justify-content: center; margin-top: 14px; }
+  .pad .btn { min-width: 84px; min-height: 52px; background: var(--bubble); font-size: 16px; }
+  .tools { display: flex; justify-content: center; margin-top: 12px; }
+  .hint { text-align: center; margin-top: 10px; }
+  .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; margin-top: 12px; font-size: 20px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend canvas { image-rendering: pixelated; }
+
+  /* shelf */
+  .carts { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .cart { display: grid; gap: 8px; justify-items: center; text-align: center; padding: 12px 10px; border: 3px solid var(--ink); border-radius: 12px; background: var(--chrome); box-shadow: 3px 3px 0 var(--ink); }
+  .cart canvas { image-rendering: pixelated; }
+  .cart h3 { margin: 0; font-family: var(--font-display); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+  .cart .meter { width: 100%; margin-top: 0; }
+  .tag { font-family: var(--font-display); font-size: 10px; text-transform: uppercase; padding: 3px 7px; border: 2px solid var(--ink); background: var(--sun); letter-spacing: .06em; }
+  .tag.on { background: var(--lime); }
+
+  /* guestbook */
+  .entry { border: 2px dashed var(--ink); padding: 8px 10px; background: var(--paper); }
+  .entry + .entry { margin-top: 10px; }
+  .entry b { font-family: var(--font-display); font-size: 12px; color: var(--ink); background: var(--bubble); padding: 1px 6px; }
+  .entry time { font-size: 18px; opacity: .8; margin-left: 6px; }
+  .entry p { margin-top: 6px; }
+  .note { font-size: 19px; margin-top: 10px; }
+
+  /* visitors */
+  .counter { display: flex; gap: 4px; margin: 8px 0; max-width: 320px; }
+  .counter span { flex: 1; text-align: center; background: var(--ink); color: var(--lime); font-family: var(--font-display); font-size: 18px; padding: 6px 0; border: 2px solid; border-color: #000 var(--chrome-dark) var(--chrome-dark) #000; }
+  .badges { display: grid; grid-template-columns: repeat(auto-fill, 88px); gap: 8px; justify-content: start; }
+  .badge { width: 88px; height: 31px; display: grid; place-items: center; border: 2px solid var(--ink); font-family: var(--font-display); font-size: 9px; font-weight: 700; text-transform: uppercase; text-align: center; line-height: 1.1; letter-spacing: .03em; color: var(--ink); }
+  .b1 { background: linear-gradient(var(--bubble), #ffc2ea); }
+  .b2 { background: linear-gradient(var(--lime), #e2ffab); }
+  .b3 { background: linear-gradient(var(--sun), #fff4b0); }
+  .b4 { background: linear-gradient(#c9a2ff, #e6d4ff); }
+  .loves { margin: 0; padding-left: 0; list-style: none; display: grid; gap: 4px; }
+  .loves li::before { content: '* '; color: var(--bubble); font-family: var(--font-display); }
+
+  /* footer */
+  .hazard { height: 16px; border: 3px solid var(--ink); background: repeating-linear-gradient(-45deg, var(--sun) 0 12px, var(--ink) 12px 24px); }
+  footer { text-align: center; font-size: 20px; display: grid; gap: 10px; }
+  footer strong { font-family: var(--font-display); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+
+  @media (max-width: 520px) {
+    .burst { left: calc(100% + 10px); top: 20px; width: 76px; height: 76px; }
+    .burst span { font-size: 12px; }
+    .gel { width: calc(50% - 8px); max-width: 160px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee { white-space: normal; padding-inline: 10px; }
+    .marquee .track { animation: none; padding-left: 0; }
+    #heroMochi, .spark, .burst, .meter i.shimmer, .win.pop { animation: none; }
+    .floaters canvas { animation: none; top: var(--y, 20%); }
+    .gel:hover { transform: none; }
+  }
+</style>
+
+<div class="floaters" id="floaters" aria-hidden="true"></div>
+
+<div class="page">
+  <div class="marquee" aria-hidden="true"><span class="track">*** WELCOME TO MOCHI MODEM *** NOW LOADING AT 56K *** CATCH THE STARS AND THE CDS, DODGE THE Y2K BUGS *** BEST VIEWED IN 800x600 *** PLEASE DO NOT PICK UP THE PHONE ***</span></div>
+
+  <header class="hero">
+    <div class="bubble" id="bubble">Hi! I'm Mochi. Pretty press a button to open a window!</div>
+    <div class="mochiWrap">
+      <canvas id="heroMochi" width="120" height="100" aria-label="Mochi, a pink pixel critter with bunny ears, waving hello"></canvas>
+      <canvas class="spark s1" id="sp1" aria-hidden="true"></canvas>
+      <canvas class="spark s2" id="sp2" aria-hidden="true"></canvas>
+      <canvas class="spark s3" id="sp3" aria-hidden="true"></canvas>
+      <div class="burst" aria-hidden="true"><span>NEW<br>GAME!</span></div>
+    </div>
+    <h1>Mochi Modem</h1>
+    <div class="tagline">𐙚⋆°｡⋆♡ Your whimsy dial-up dreamland. 𐙚⋆°｡⋆♡</div>
+  </header>
+
+  <nav class="icons" aria-label="Windows">
+    <button class="gel t1" type="button" data-open="win-play" aria-controls="win-play" aria-expanded="false"><canvas id="iPlay" aria-hidden="true"></canvas><span>Play</span></button>
+    <button class="gel t2" type="button" data-open="win-shelf" aria-controls="win-shelf" aria-expanded="false"><canvas id="iShelf" aria-hidden="true"></canvas><span>Games</span></button>
+    <button class="gel t3" type="button" data-open="win-guests" aria-controls="win-guests" aria-expanded="false"><canvas id="iGuests" aria-hidden="true"></canvas><span>Guestbook</span></button>
+    <button class="gel t4" type="button" data-open="win-about" aria-controls="win-about" aria-expanded="false"><canvas id="iAbout" aria-hidden="true"></canvas><span>About</span></button>
+    <button class="gel t5" type="button" data-open="win-visitors" aria-controls="win-visitors" aria-expanded="false"><canvas id="iVisitors" aria-hidden="true"></canvas><span>Visitors</span></button>
+  </nav>
+
+  <main id="desk" aria-live="polite">
+    <div class="empty" id="emptyDesk">Your whimsy desktop is empty. Press a button above to open a window.</div>
+
+    <section class="win" id="win-about" tabindex="-1" hidden aria-label="About">
+      <div class="bar"><span>Welcome.exe</span><button class="close" type="button" data-close="win-about" aria-label="Close About window">X</button></div>
+      <div class="inner">
+        <h2>Hi! You made it.</h2>
+        <p>Mochi Modem is a tiny corner of the internet where the games are small, the colors are loud, and everything loads at exactly the speed of a 56k connection.</p>
+        <p>Grab a snack, turn your volume down, and catch a few stars.</p>
+        <div class="note">Dial-up connection: connected at 56,000 bps</div>
+        <div class="meter" role="img" aria-label="Connection complete"><i class="shimmer" style="width:100%"></i></div>
+      </div>
+      <div class="inner">
+        <h2>Stuff I love</h2>
+        <ul class="loves">
+          <li>dial-up screeches</li>
+          <li>glitter gel pens</li>
+          <li>see-through gadgets</li>
+          <li>CRT glow</li>
+          <li>mochi, obviously</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="win" id="win-play" tabindex="-1" hidden aria-label="Star Catcher game">
+      <div class="bar"><span>Star Catcher.exe</span><button class="close" type="button" data-close="win-play" aria-label="Close Star Catcher window">X</button></div>
+      <div class="inner">
+        <div class="hud">
+          <span class="lcd">Score <span id="score">0</span></span>
+          <span class="lcd">Level <span id="level">1</span></span>
+          <span class="lcd">Best <span id="best">0</span></span>
+        </div>
+        <div class="stage">
+          <canvas id="game" width="240" height="320" aria-label="Star Catcher game: move the pink critter to catch falling stars, CDs and hearts, and dodge the purple Y2K bugs."></canvas>
+          <div class="overlay" id="overlay">
+            <h3 id="ovTitle">Star Catcher</h3>
+            <p id="ovText">Catch stars and CDs. Dodge the Y2K bugs. Hearts give you extra lives.</p>
+            <button class="btn" id="startBtn" type="button">Start</button>
+          </div>
+        </div>
+        <div class="pad">
+          <button class="btn" id="padL" type="button" aria-label="Move left">&#9664;</button>
+          <button class="btn" id="padR" type="button" aria-label="Move right">&#9654;</button>
+        </div>
+        <div class="tools"><button class="btn small" id="soundBtn" type="button" aria-pressed="true">Sound: on</button></div>
+        <div class="legend">
+          <span><canvas id="lgStar" aria-hidden="true"></canvas> 10</span>
+          <span><canvas id="lgCd" aria-hidden="true"></canvas> 30</span>
+          <span><canvas id="lgHeart" aria-hidden="true"></canvas> extra life</span>
+          <span><canvas id="lgBug" aria-hidden="true"></canvas> ouch</span>
+        </div>
+        <p class="hint note">Arrow keys or A / D to move. On a phone, drag on the game or hold the buttons. Catch 5 in a row for a combo.</p>
+      </div>
+    </section>
+
+    <section class="win" id="win-shelf" tabindex="-1" hidden aria-label="Game shelf">
+      <div class="bar"><span>Game shelf</span><button class="close" type="button" data-close="win-shelf" aria-label="Close Game shelf window">X</button></div>
+      <div class="inner">
+        <div class="carts">
+          <div class="cart">
+            <canvas id="iconStar" aria-hidden="true"></canvas>
+            <h3>Star Catcher</h3>
+            <span class="tag on">Playable now</span>
+            <button class="btn" type="button" data-open="win-play">Play</button>
+          </div>
+          <div class="cart">
+            <canvas id="iconHeart" aria-hidden="true"></canvas>
+            <h3>Bubble Bakery</h3>
+            <span class="tag">In the oven</span>
+            <div class="meter pink" role="img" aria-label="60 percent baked"><i style="width:60%"></i></div>
+          </div>
+          <div class="cart">
+            <canvas id="iconCd" aria-hidden="true"></canvas>
+            <h3>Dial-Up Dungeon</h3>
+            <span class="tag">Still loading</span>
+            <div class="meter" role="img" aria-label="25 percent loaded"><i style="width:25%"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="win" id="win-guests" tabindex="-1" hidden aria-label="Guestbook">
+      <div class="bar"><span>Guestbook</span><button class="close" type="button" data-close="win-guests" aria-label="Close Guestbook window">X</button></div>
+      <div class="inner">
+        <div class="entry"><b>xX_sprinkle_Xx</b><time>12/31/99 11:58pm</time><p>ur star game ate my whole lunch break. 10/10 would catch again</p></div>
+        <div class="entry"><b>gamma_rae</b><time>01/01/00 12:03am</time><p>love the colors!! is the bakery game real yet??</p></div>
+        <div class="entry"><b>lil_modem</b><time>01/01/00 12:09am</time><p>screeeeeEEEEE-ksh-ksh-... connected! hi!</p></div>
+        <div class="note">These are sample entries. The real guestbook opens soon.</div>
+      </div>
+    </section>
+
+    <section class="win" id="win-visitors" tabindex="-1" hidden aria-label="Visitors">
+      <div class="bar"><span>Visitors</span><button class="close" type="button" data-close="win-visitors" aria-label="Close Visitors window">X</button></div>
+      <div class="inner">
+        <h2>Visitor counter</h2>
+        <p>You have loaded this page</p>
+        <div class="counter" id="counter"><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span></div>
+        <p>times. Thanks for coming back!</p>
+      </div>
+      <div class="inner">
+        <h2>Buttons</h2>
+        <div class="badges">
+          <div class="badge b1">Made with glitter</div>
+          <div class="badge b2">56k OK</div>
+          <div class="badge b3">No ads ever</div>
+          <div class="badge b4">Y2K safe</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="hazard" aria-hidden="true"></div>
+    <strong>⋆˚✿🍒𐙚⋆˚⋆˚✿🍒𐙚⋆˚⋆˚✿🍒𐙚⋆˚⋆˚✿🍒𐙚⋆˚⋆˚✿🍒𐙚⋆˚⋆˚✿🍒𐙚⋆˚⋆˚✿🍒𐙚⋆˚⋆˚✿</strong>
+    <div>&copy; 2026 Mochi Modem.</div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  function $(id) { return document.getElementById(id); }
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var PAL = { k: '#241454', p: '#ff7ad0', w: '#fffdf7', c: '#ff4fa8', y: '#ffe65c', o: '#ff9d2e', r: '#ff4f6d', g: '#8f97bd', v: '#7a3cff', a: '#5fe0ff', l: '#b8ff4f', n: '#3fb8e8' };
+
+  var CRITTER = [
+    "..kk....kk..",
+    ".kppk..kppk.",
+    ".kppkkkkppk.",
+    "kppppppppppk",
+    "kpppkppkpppk",
+    "kppppppppppk",
+    "kpcppkkppcpk",
+    "kppppppppppk",
+    ".kppppppppk.",
+    ".kkkkkkkkkk."
+  ];
+  var CRITTER_BLINK = [
+    "..kk....kk..",
+    ".kppk..kppk.",
+    ".kppkkkkppk.",
+    "kppppppppppk",
+    "kppppppppppk",
+    "kppkkppkkppk",
+    "kpcppkkppcpk",
+    "kppppppppppk",
+    ".kppppppppk.",
+    ".kkkkkkkkkk."
+  ];
+  var STAR = [
+    "....o....",
+    "...oyo...",
+    "...oyo...",
+    "ooooyoooo",
+    "oyyyyyyyo",
+    ".oyyyyyo.",
+    "..oyyyo..",
+    ".oyyoyyo.",
+    ".ooo.ooo."
+  ];
+  var BUG = [
+    "k.......k",
+    ".k.kkk.k.",
+    "..kvvvk..",
+    "kkvwvwvkk",
+    "..kvvvk..",
+    "kkvvvvvkk",
+    "..kvvvk..",
+    ".k.....k."
+  ];
+  var CD = [
+    "..kkkkk..",
+    ".kaawwak.",
+    "kaawwwaak",
+    "kawwkwwak",
+    "kawkkkwak",
+    "kawwkwwak",
+    "kaawwwaak",
+    ".kaawwak.",
+    "..kkkkk.."
+  ];
+  var HEART = [
+    ".rr.rr.",
+    "rrrrrrr",
+    "rrrrrrr",
+    ".rrrrr.",
+    "..rrr..",
+    "...r..."
+  ];
+  var PADMAP = [
+    ".kkkkkkkkkk.",
+    "kvvvvvvvvvvk",
+    "kvvvkvvvvlvk",
+    "kvvkkkvvlvpk",
+    "kvvvkvvvvpvk",
+    "kvvvvvvvvvvk",
+    ".kkkkkkkkkk."
+  ];
+  var ENV = [
+    "kkkkkkkkkk",
+    "kwkwwwwkwk",
+    "kwwkwwkwwk",
+    "kwwwkkwwwk",
+    "kwwwwwwwwk",
+    "kwwwwwwwwk",
+    "kkkkkkkkkk"
+  ];
+  var SMILEY = [
+    "..kkkkk..",
+    ".kyyyyyk.",
+    "kykyyykyk",
+    "kyyyyyyyk",
+    "kyyyyyyyk",
+    "kykyyykyk",
+    "kyykkkyyk",
+    ".kyyyyyk.",
+    "..kkkkk.."
+  ];
+  var MONITOR = [
+    "kkkkkkkkkkk",
+    "kgggggggggk",
+    "kgaaaaaaagk",
+    "kgaawaaaagk",
+    "kgaaaaaaagk",
+    "kgggggggggk",
+    "kkkkgggkkkk",
+    "...kgggk...",
+    ".kkkkkkkkk."
+  ];
+  var SPARK = [
+    "..y..",
+    ".yyy.",
+    "yyyyy",
+    ".yyy.",
+    "..y.."
+  ];
+
+  function draw(c, map, x, y, s) {
+    for (var r = 0; r < map.length; r++) {
+      for (var q = 0; q < map[r].length; q++) {
+        var ch = map[r].charAt(q);
+        if (ch !== '.') {
+          c.fillStyle = PAL[ch];
+          c.fillRect(Math.round(x + q * s), Math.round(y + r * s), s, s);
+        }
+      }
+    }
+  }
+  function icon(id, map, s) {
+    var el = $(id);
+    el.width = map[0].length * s;
+    el.height = map.length * s;
+    el.style.width = el.width + 'px';
+    el.style.height = el.height + 'px';
+    draw(el.getContext('2d'), map, 0, 0, s);
+  }
+
+  /* static art */
+  icon('iPlay', STAR, 4);
+  icon('iShelf', PADMAP, 4);
+  icon('iGuests', ENV, 4);
+  icon('iAbout', SMILEY, 4);
+  icon('iVisitors', MONITOR, 4);
+  icon('iconStar', STAR, 5);
+  icon('iconHeart', HEART, 6);
+  icon('iconCd', CD, 5);
+  icon('lgStar', STAR, 2);
+  icon('lgCd', CD, 2);
+  icon('lgHeart', HEART, 3);
+  icon('lgBug', BUG, 2);
+  icon('sp1', SPARK, 4);
+  icon('sp2', SPARK, 3);
+  icon('sp3', SPARK, 3);
+
+  /* hero mochi with blink */
+  var hero = $('heroMochi'), hctx = hero.getContext('2d');
+  function paintHero(blink) {
+    hctx.clearRect(0, 0, hero.width, hero.height);
+    draw(hctx, blink ? CRITTER_BLINK : CRITTER, 0, 0, 10);
+  }
+  paintHero(false);
+  setInterval(function () {
+    paintHero(true);
+    setTimeout(function () { paintHero(false); }, 160);
+  }, 3200);
+
+  /* drifting pixel shapes */
+  var fl = $('floaters');
+  var floatMaps = [[SPARK, 3], [STAR, 3], [HEART, 3], [SPARK, 2], [CD, 3]];
+  for (var f = 0; f < 14; f++) {
+    var pick = floatMaps[f % floatMaps.length];
+    var cvs = document.createElement('canvas');
+    cvs.width = pick[0][0].length * pick[1];
+    cvs.height = pick[0].length * pick[1];
+    draw(cvs.getContext('2d'), pick[0], 0, 0, pick[1]);
+    cvs.style.left = (4 + (f * 37) % 92) + '%';
+    cvs.style.setProperty('--dur', (18 + (f * 7) % 16) + 's');
+    cvs.style.setProperty('--delay', '-' + ((f * 5) % 22) + 's');
+    cvs.style.setProperty('--y', (8 + (f * 23) % 80) + '%');
+    fl.appendChild(cvs);
+  }
+
+  /* sparkle cursor trail */
+  if (!reduce && window.matchMedia && matchMedia('(pointer: fine)').matches) {
+    var trailColors = ['#ff7ad0', '#ffe65c', '#5fe0ff', '#b8ff4f', '#ffffff'];
+    var lastSpark = 0;
+    window.addEventListener('pointermove', function (e) {
+      var now = performance.now();
+      if (now - lastSpark < 70) return;
+      lastSpark = now;
+      var s = document.createElement('i');
+      s.className = 'trail';
+      s.style.left = (e.clientX - 6) + 'px';
+      s.style.top = (e.clientY - 6) + 'px';
+      s.style.setProperty('--c', trailColors[Math.floor(Math.random() * trailColors.length)]);
+      document.body.appendChild(s);
+      setTimeout(function () { s.remove(); }, 700);
+    });
+  }
+
+  /* visit counter (per browser) */
+  var visits = 1;
+  try {
+    visits = (parseInt(localStorage.getItem('mm-visits'), 10) || 0) + 1;
+    localStorage.setItem('mm-visits', String(visits));
+  } catch (e) {}
+  var digits = String(visits).padStart(6, '0').slice(-6).split('');
+  var cells = document.querySelectorAll('#counter span');
+  for (var d = 0; d < cells.length; d++) cells[d].textContent = digits[d];
+
+  /* window manager */
+  var hooks = {};
+  var desk = $('desk'), emptyDesk = $('emptyDesk'), bubble = $('bubble');
+  var lines = ['yay, a window!', 'ooh, shiny!', 'welcome to the 2000s!', 'ding! you have mail', 'pretty, right?', 'screeeee-ksh-ksh...'];
+  var lineIx = 0;
+  function setBtns(id, on) {
+    var list = document.querySelectorAll('.gel[data-open="' + id + '"]');
+    for (var i = 0; i < list.length; i++) list[i].setAttribute('aria-expanded', on ? 'true' : 'false');
+  }
+  function refreshEmpty() {
+    emptyDesk.hidden = !!desk.querySelector('.win:not([hidden])');
+  }
+  function openWin(id) {
+    var w = $(id);
+    var wasHidden = w.hidden;
+    w.hidden = false;
+    desk.insertBefore(w, emptyDesk.nextSibling);
+    w.classList.remove('pop');
+    void w.offsetWidth;
+    w.classList.add('pop');
+    setBtns(id, true);
+    refreshEmpty();
+    if (wasHidden) {
+      bubble.textContent = lines[lineIx++ % lines.length];
+      if (hooks[id] && hooks[id].open) hooks[id].open();
+    }
+    w.focus({ preventScroll: true });
+    w.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
+  }
+  function closeWin(id) {
+    var w = $(id);
+    if (w.hidden) return;
+    w.hidden = true;
+    setBtns(id, false);
+    refreshEmpty();
+    if (!desk.querySelector('.win:not([hidden])')) bubble.textContent = "hi!! i'm Mochi. press a button to open a window!";
+    if (hooks[id] && hooks[id].close) hooks[id].close();
+    var back = document.querySelector('.gel[data-open="' + id + '"]');
+    if (back) back.focus({ preventScroll: true });
+  }
+  document.addEventListener('click', function (e) {
+    var o = e.target.closest ? e.target.closest('[data-open]') : null;
+    if (o) { openWin(o.getAttribute('data-open')); return; }
+    var c = e.target.closest ? e.target.closest('[data-close]') : null;
+    if (c) closeWin(c.getAttribute('data-close'));
+  });
+
+  /* ---------------- Star Catcher ---------------- */
+  var W = 240, H = 320, GROUND = H - 40;
+  var cv = $('game');
+  var ctx = cv.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+  var overlay = $('overlay'), ovTitle = $('ovTitle'), ovText = $('ovText'), startBtn = $('startBtn');
+  var elScore = $('score'), elLevel = $('level'), elBest = $('best');
+  var winPlay = $('win-play');
+
+  /* static background, painted once */
+  var bg = document.createElement('canvas');
+  bg.width = W; bg.height = H;
+  (function (c) {
+    var bands = ['#7fe6ff', '#9fd0ff', '#b9b6ff', '#d6aaff', '#f0a8f0', '#ffb3d9', '#ffd2c2'];
+    var bh = Math.ceil(GROUND / bands.length);
+    for (var b = 0; b < bands.length; b++) { c.fillStyle = bands[b]; c.fillRect(0, b * bh, W, bh); }
+    /* rainbow */
+    var rb = ['#ff4f6d', '#ff9d2e', '#ffe65c', '#b8ff4f', '#5fe0ff', '#7a3cff'];
+    c.globalAlpha = 0.9;
+    for (var i = 0; i < rb.length; i++) {
+      var r = 124 - i * 5;
+      c.fillStyle = rb[i];
+      for (var a = Math.PI; a <= 2 * Math.PI; a += 1 / r) {
+        var x = Math.round((W / 2 + r * Math.cos(a)) / 3) * 3;
+        var y = Math.round((GROUND + 10 + r * Math.sin(a)) / 3) * 3;
+        c.fillRect(x, y, 5, 5);
+      }
+    }
+    c.globalAlpha = 1;
+    /* sun with sunglasses */
+    var sx = 194, sy = 54, cell = 3;
+    c.fillStyle = PAL.y;
+    for (var gy = -7; gy <= 7; gy++) for (var gx = -7; gx <= 7; gx++) {
+      var dd = gx * gx + gy * gy;
+      if (dd <= 49) { c.fillStyle = dd > 36 ? PAL.o : PAL.y; c.fillRect(sx + gx * cell, sy + gy * cell, cell, cell); }
+    }
+    c.fillStyle = PAL.o;
+    for (var k = 0; k < 8; k++) {
+      var ang = k * Math.PI / 4;
+      c.fillRect(Math.round(sx + Math.cos(ang) * 31) - 3, Math.round(sy + Math.sin(ang) * 31) - 3, 6, 6);
+    }
+    c.fillStyle = PAL.k;
+    c.fillRect(sx - 15, sy - 6, 12, 7);
+    c.fillRect(sx + 3, sy - 6, 12, 7);
+    c.fillRect(sx - 3, sy - 5, 6, 3);
+    c.fillRect(sx - 9, sy + 8, 3, 3);
+    c.fillRect(sx - 6, sy + 11, 12, 3);
+    c.fillRect(sx + 6, sy + 8, 3, 3);
+    /* ground */
+    c.fillStyle = PAL.k; c.fillRect(0, GROUND, W, 3);
+    c.fillStyle = PAL.l; c.fillRect(0, GROUND + 3, W, 6);
+    for (var tx = 0; tx < W; tx += 8) {
+      for (var ty = GROUND + 9, row = 0; ty < H; ty += 8, row++) {
+        c.fillStyle = (tx / 8 + row) % 2 ? '#ff9fe0' : '#ffc6ee';
+        c.fillRect(tx, ty, 8, 8);
+      }
+    }
+  })(bg.getContext('2d'));
+
+  /* sound */
+  var AC = null, soundOn = true;
+  function audio() {
+    if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { AC = null; } }
+    if (AC && AC.state === 'suspended') AC.resume();
+    return AC;
+  }
+  function tone(freq, dur, type, vol, delay) {
+    if (!soundOn || !AC) return;
+    var t0 = AC.currentTime + (delay || 0);
+    var o = AC.createOscillator(), g = AC.createGain();
+    o.type = type || 'square';
+    o.frequency.setValueAtTime(freq, t0);
+    g.gain.setValueAtTime(vol || 0.04, t0);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(AC.destination);
+    o.start(t0); o.stop(t0 + dur + 0.02);
+  }
+  var SFX = {
+    star: function () { tone(880, 0.07); tone(1320, 0.1, 'square', 0.04, 0.06); },
+    cd: function () { tone(660, 0.07); tone(880, 0.07, 'square', 0.04, 0.07); tone(1320, 0.12, 'square', 0.04, 0.14); },
+    heart: function () { tone(523, 0.08, 'triangle', 0.07); tone(659, 0.08, 'triangle', 0.07, 0.08); tone(784, 0.08, 'triangle', 0.07, 0.16); tone(1047, 0.16, 'triangle', 0.07, 0.24); },
+    bug: function () { tone(180, 0.22, 'sawtooth', 0.05); tone(120, 0.26, 'sawtooth', 0.05, 0.1); },
+    over: function () { tone(440, 0.16, 'square', 0.05); tone(330, 0.16, 'square', 0.05, 0.16); tone(220, 0.34, 'square', 0.05, 0.32); },
+    start: function () { tone(523, 0.07); tone(784, 0.07, 'square', 0.04, 0.07); tone(1047, 0.12, 'square', 0.04, 0.14); }
+  };
+  $('soundBtn').addEventListener('click', function () {
+    soundOn = !soundOn;
+    this.textContent = 'Sound: ' + (soundOn ? 'on' : 'off');
+    this.setAttribute('aria-pressed', soundOn ? 'true' : 'false');
+  });
+
+  var state = 'attract', score = 0, lives = 3, level = 1, best = 0, combo = 0;
+  var items = [], parts = [], floats = [], spawnT = 0, t = 0, shake = 0, raf = 0, last = 0;
+  var player = { x: W / 2 - 18, tx: null, hop: 0 };
+  var keys = { l: false, r: false };
+  var PW = 36, PH = 30;
+  try { best = parseInt(localStorage.getItem('mm-best'), 10) || 0; } catch (e) {}
+
+  var seed = 7;
+  function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+  var twinkles = [];
+  for (var i = 0; i < 22; i++) twinkles.push({ x: Math.floor(rnd() * (W - 4)), y: Math.floor(rnd() * (GROUND - 40)) });
+
+  function mult() { return Math.min(4, 1 + Math.floor(combo / 5)); }
+  function hud() { elScore.textContent = score; elLevel.textContent = level; elBest.textContent = best; }
+
+  function spawn() {
+    var playing = state === 'play';
+    var bugChance = playing ? Math.min(0.34, 0.12 + level * 0.03) : 0.1;
+    var roll = Math.random(), type = 'star';
+    if (roll < bugChance) type = 'bug';
+    else if (playing && lives < 5 && Math.random() < 0.05) type = 'heart';
+    else if (Math.random() < 0.14) type = 'cd';
+    items.push({ type: type, x: 4 + Math.random() * (W - 34), y: -30, m: 0.8 + Math.random() * 0.5 });
+  }
+
+  function burst(x, y, color) {
+    for (var n = 0; n < 8; n++) {
+      parts.push({ x: x, y: y, vx: (Math.random() - 0.5) * 130, vy: -40 - Math.random() * 80, life: 0.55, c: color });
+    }
+  }
+  function floatText(x, y, text, color) { floats.push({ x: x, y: y, text: text, c: color, life: 0.9 }); }
+
+  function showOverlay(title, text, btn) {
+    ovTitle.textContent = title;
+    ovText.textContent = text;
+    startBtn.textContent = btn;
+    overlay.hidden = false;
+  }
+
+  function endGame() {
+    state = 'over';
+    var isBest = score > best;
+    if (isBest) { best = score; try { localStorage.setItem('mm-best', String(best)); } catch (e) {} }
+    hud();
+    SFX.over();
+    showOverlay('System error!', 'A Y2K bug got you. You scored ' + score + (isBest && score > 0 ? '. New best!' : '.'), 'Reboot');
+    startBtn.focus({ preventScroll: true });
+  }
+
+  function startGame() {
+    audio();
+    SFX.start();
+    score = 0; lives = 3; level = 1; combo = 0;
+    items = []; parts = []; floats = []; spawnT = 0.3; shake = 0;
+    player.tx = null;
+    state = 'play';
+    overlay.hidden = true;
+    hud();
+    ensureLoop();
+  }
+
+  function abort() {
+    keys.l = keys.r = false;
+    state = 'attract';
+    items = []; parts = []; floats = [];
+    showOverlay('Star Catcher', 'Catch stars and CDs. Dodge the Y2K bugs. Hearts give you extra lives.', 'Start');
+    hud();
+  }
+
+  hooks['win-play'] = {
+    open: function () { render(); ensureLoop(); },
+    close: abort
+  };
+
+  function update(dt) {
+    t += dt;
+    var speed = state === 'play' ? 240 : 150;
+    if (state === 'play') {
+      if (keys.l || keys.r) {
+        player.tx = null;
+        player.x += ((keys.r ? 1 : 0) - (keys.l ? 1 : 0)) * speed * dt;
+      } else if (player.tx !== null) {
+        var dx = player.tx - (player.x + PW / 2);
+        var step = speed * 1.4 * dt;
+        player.x += Math.abs(dx) < step ? dx : (dx < 0 ? -step : step);
+      }
+    } else {
+      var target = null, by = -999;
+      for (var a = 0; a < items.length; a++) {
+        if ((items[a].type === 'star' || items[a].type === 'cd') && items[a].y > by) { by = items[a].y; target = items[a]; }
+      }
+      if (target) {
+        var d2 = (target.x + 13) - (player.x + PW / 2);
+        var st = speed * dt;
+        player.x += Math.abs(d2) < st ? d2 : (d2 < 0 ? -st : st);
+      }
+    }
+    player.x = Math.max(2, Math.min(W - PW - 2, player.x));
+    if (player.hop > 0) player.hop = Math.max(0, player.hop - 28 * dt);
+
+    spawnT -= dt;
+    if (spawnT <= 0) {
+      spawn();
+      spawnT = state === 'play' ? Math.max(0.32, 0.85 - level * 0.06) : 0.8;
+    }
+
+    var fall = state === 'play' ? 70 + level * 14 : 60;
+    var py = GROUND - PH;
+    for (var i = items.length - 1; i >= 0; i--) {
+      var it = items[i];
+      it.y += fall * it.m * dt;
+      var iw = 27;
+      var hit = it.x < player.x + PW && it.x + iw > player.x && it.y + iw > py + 4 && it.y < py + PH;
+      if (hit) {
+        var cx = it.x + 13, cy = it.y + 13;
+        if (it.type === 'bug') {
+          burst(cx, cy, PAL.v);
+          if (state === 'play') {
+            SFX.bug();
+            lives -= 1; combo = 0; shake = 0.35;
+            if (lives <= 0) { items.splice(i, 1); endGame(); return; }
+          }
+        } else if (it.type === 'heart') {
+          burst(cx, cy, PAL.r);
+          if (state === 'play') {
+            SFX.heart();
+            lives = Math.min(5, lives + 1);
+            floatText(cx, cy, '+1 life', PAL.r);
+          }
+          player.hop = 8;
+        } else {
+          var isCd = it.type === 'cd';
+          burst(cx, cy, isCd ? PAL.a : PAL.y);
+          if (state === 'play') {
+            combo += 1;
+            var pts = (isCd ? 30 : 10) * mult();
+            score += pts;
+            level = 1 + Math.floor(score / 120);
+            (isCd ? SFX.cd : SFX.star)();
+            floatText(cx, cy, '+' + pts, isCd ? PAL.a : PAL.y);
+            hud();
+          }
+          player.hop = 6;
+        }
+        items.splice(i, 1);
+      } else if (it.y > GROUND) {
+        if (state === 'play' && it.type === 'star') combo = 0;
+        items.splice(i, 1);
+      }
+    }
+    for (var j = parts.length - 1; j >= 0; j--) {
+      var p = parts[j];
+      p.life -= dt; p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 300 * dt;
+      if (p.life <= 0) parts.splice(j, 1);
+    }
+    for (var m = floats.length - 1; m >= 0; m--) {
+      floats[m].life -= dt; floats[m].y -= 34 * dt;
+      if (floats[m].life <= 0) floats.splice(m, 1);
+    }
+    if (shake > 0) shake -= dt;
+  }
+
+  function cloud(x, y) {
+    ctx.fillStyle = PAL.w;
+    ctx.fillRect(x, y, 48, 10);
+    ctx.fillRect(x + 8, y - 8, 28, 8);
+    ctx.fillRect(x + 16, y - 14, 14, 6);
+  }
+  function outlined(text, x, y, color) {
+    ctx.lineWidth = 3; ctx.strokeStyle = PAL.k; ctx.lineJoin = 'round';
+    ctx.strokeText(text, x, y);
+    ctx.fillStyle = color; ctx.fillText(text, x, y);
+  }
+
+  function render() {
+    ctx.save();
+    if (shake > 0) ctx.translate(Math.round(Math.random() * 6 - 3), Math.round(Math.random() * 6 - 3));
+    ctx.drawImage(bg, 0, 0);
+    ctx.fillStyle = PAL.w;
+    for (var k = 0; k < twinkles.length; k++) {
+      if ((Math.floor(t * 2) + k) % 3 !== 0) ctx.fillRect(twinkles[k].x, twinkles[k].y, 2, 2);
+    }
+    cloud(Math.round(((20 + t * 8) % (W + 90)) - 60), 78);
+    cloud(Math.round(((150 + t * 5) % (W + 90)) - 60), 136);
+
+    for (var i = 0; i < items.length; i++) {
+      var it = items[i];
+      if (it.type === 'star') draw(ctx, STAR, it.x, it.y, 3);
+      else if (it.type === 'cd') draw(ctx, CD, it.x, it.y + Math.round(Math.sin(t * 8 + it.x) * 2), 3);
+      else if (it.type === 'heart') draw(ctx, HEART, it.x - 1, it.y + 2, 4);
+      else draw(ctx, BUG, it.x + Math.round(Math.sin(t * 14 + it.x) * 1.5), it.y, 3);
+    }
+    for (var j = 0; j < parts.length; j++) {
+      ctx.fillStyle = parts[j].c;
+      ctx.fillRect(Math.round(parts[j].x), Math.round(parts[j].y), 3, 3);
+    }
+
+    var idleHop = state === 'play' ? 0 : Math.round(Math.abs(Math.sin(t * 6)) * 3);
+    draw(ctx, CRITTER, player.x, GROUND - PH - idleHop - Math.round(player.hop), 3);
+
+    ctx.font = 'bold 9px Silkscreen, "Courier New", monospace';
+    ctx.textBaseline = 'alphabetic';
+    for (var m = 0; m < floats.length; m++) {
+      ctx.globalAlpha = Math.min(1, floats[m].life * 2);
+      outlined(floats[m].text, Math.round(floats[m].x - 10), Math.round(floats[m].y), floats[m].c);
+    }
+    ctx.globalAlpha = 1;
+
+    if (state === 'play') {
+      for (var h = 0; h < lives; h++) draw(ctx, HEART, W - 6 - (h + 1) * 24, 8, 3);
+      if (combo >= 5) outlined('COMBO x' + mult(), 8, 18, PAL.y);
+    }
+    ctx.restore();
+  }
+
+  function frame(ts) {
+    if (winPlay.hidden) { raf = 0; return; }
+    var dt = Math.min(0.05, (ts - last) / 1000 || 0);
+    last = ts;
+    update(dt);
+    render();
+    if (state !== 'play' && reduce) { raf = 0; return; }
+    raf = requestAnimationFrame(frame);
+  }
+  function ensureLoop() {
+    if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); }
+  }
+
+  /* seed the first frame so the stage is alive when the window opens */
+  var seedTypes = ['star', 'cd', 'bug', 'star'];
+  for (var s = 0; s < 4; s++) items.push({ type: seedTypes[s], x: 20 + s * 52, y: 12 + s * 38, m: 1 });
+  hud();
+
+  /* input */
+  startBtn.addEventListener('click', startGame);
+  window.addEventListener('keydown', function (e) {
+    var k = e.key;
+    if (k === 'ArrowLeft' || k === 'a' || k === 'A') { keys.l = true; if (state === 'play') e.preventDefault(); }
+    if (k === 'ArrowRight' || k === 'd' || k === 'D') { keys.r = true; if (state === 'play') e.preventDefault(); }
+  });
+  window.addEventListener('keyup', function (e) {
+    var k = e.key;
+    if (k === 'ArrowLeft' || k === 'a' || k === 'A') keys.l = false;
+    if (k === 'ArrowRight' || k === 'd' || k === 'D') keys.r = false;
+  });
+  window.addEventListener('blur', function () { keys.l = keys.r = false; });
+
+  var drag = false;
+  function setT(e) {
+    var rect = cv.getBoundingClientRect();
+    player.tx = (e.clientX - rect.left) * W / rect.width;
+  }
+  cv.addEventListener('pointerdown', function (e) {
+    drag = true; setT(e);
+    try { cv.setPointerCapture(e.pointerId); } catch (err) {}
+  });
+  cv.addEventListener('pointermove', function (e) { if (drag || e.pointerType === 'mouse') setT(e); });
+  cv.addEventListener('pointerup', function () { drag = false; });
+  cv.addEventListener('pointercancel', function () { drag = false; });
+
+  function hold(id, key) {
+    var el = $(id);
+    function on(e) { e.preventDefault(); keys[key] = true; }
+    function off() { keys[key] = false; }
+    el.addEventListener('pointerdown', on);
+    el.addEventListener('pointerup', off);
+    el.addEventListener('pointerleave', off);
+    el.addEventListener('pointercancel', off);
+    el.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+  }
+  hold('padL', 'l');
+  hold('padR', 'r');
+})();
+</script>
+
+</html>
